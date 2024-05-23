@@ -2,6 +2,10 @@ const express = require('express');
 const Videos = require('../models/videoModel');
 const router = express.Router();
 const { getSingleVideo } = require('../controllers/videoController');
+const requireAuth = require('../middlewares/requireAuth');
+
+
+router.use(requireAuth);
 
 // Get a single video
 router.get('/', getSingleVideo);

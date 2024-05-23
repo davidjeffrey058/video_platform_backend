@@ -8,12 +8,12 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 
 // middleware
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-    console.log(req.path, req.method);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(req.path, req.method);
+//     next();
+// });
 
 app.get('/', (req, res) => {
     res.redirect('/api/videos');
