@@ -38,7 +38,7 @@ userSchema.statics.signup = async function (fullname, email, password) {
     const exists = await this.findOne({ email });
     if (exists) throw Error('Email already exists');
 
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hash = await bcrypt.hash(password, salt);
 
     return await this.create({ fullname, email, password: hash });
@@ -55,6 +55,16 @@ userSchema.statics.login = async function (email, password) {
     if (!compare) throw Error('Incorrect password for that email');
 
     return user;
+}
+
+// static change password method
+userSchema.statics.changePassword = async function (userId, password) {
+    if (!validator.isStrongPassword(password)) throw Error('Password must contain a number, a special character, a capital letter, and must be 8 length long');
+
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hash = await bcrypt.hash(password, salt);
+
+    await this.updateOne({ _id: userId }, { $set: { password: hash } });
 }
 
 

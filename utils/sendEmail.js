@@ -20,9 +20,9 @@ module.exports = async (email, subject, text) => {
             from: process.env.USER,
         });
 
-        console.log('Email sent');
+        return true;
     } catch (error) {
-        console.log('Email not sent');
+        return false;
         console.log(error);
     }
 }
