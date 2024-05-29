@@ -55,23 +55,29 @@ const signupUser = async (req, res) => {
 
 // Verifies user email address
 const verifyUser = async (req, res) => {
-    const { id, token } = req.params.id;
+    const { id, token } = req.params;
+
     try {
         const user = await User.findOne({ _id: id });
-        if (!user) return res.status(400).json({ error: "Invalid link" });
+        if (!user) {
+            return res.status(400).json({ error: "Invalid link" });
+        }
 
         const signupToken = await Token.findOne({
             user_id: id,
             token: token
         });
 
-        if (!signupToken) return res.status(400).json({ error: "Invalid link" });
+        if (!signupToken) {
+            return res.status(400).json({ error: "Invalid link" });
+        }
 
         await User.updateOne({ _id: user._id }, { $set: { verified: true } });
         await Token.deleteOne({ user_id: user._id });
 
         res.status(200).json({ message: "Email verified successfully" });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Internal server error' });
     }
 }
