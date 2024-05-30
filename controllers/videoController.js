@@ -13,6 +13,15 @@ const getSingleVideo = async (req, res) => {
     }
 };
 
+const getAllVideos = async (req, res) => {
+    try {
+        const videos = await Videos.find();
+        res.status(200).json({ videos });
+    } catch (error) {
+        res.status(500).json({ error: 'An unknown error occured' });
+    }
+}
+
 const uploadVideo = async (req, res) => {
     const { title, description, url } = req.body;
     try {
@@ -29,5 +38,6 @@ const uploadVideo = async (req, res) => {
 
 module.exports = {
     getSingleVideo,
-    uploadVideo
+    uploadVideo,
+    getAllVideos
 }
