@@ -1,25 +1,21 @@
 const express = require('express');
-const Videos = require('../models/videoModel');
 const router = express.Router();
-const { getSingleVideo, uploadVideo, getAllVideos } = require('../controllers/videoController');
+const { getSingleVideo, getAllVideos, videoUpload } = require('../controllers/videoController');
 const requireAuth = require('../middlewares/requireAuth');
 const isAdmin = require('../middlewares/isAdmin');
+const multer = require('multer');
 
+const upload = multer({
+    storage: multer.memoryStorage(),
+});
 
 router.use(requireAuth);
 
 // Get a single video
-router.get('/', getSingleVideo);
-router.get('/all', getAllVideos);
+router.get('/:vid', getSingleVideo);
+router.get('', getAllVideos);
 
 router.use(isAdmin);
-// Upload a video
-router.post('/', uploadVideo);
-
-// Delete a video
-// router.delete('/:id', (req, res) => {
-
-// });
-
+router.post('/upload', upload.single('file'), videoUpload)
 
 module.exports = router;

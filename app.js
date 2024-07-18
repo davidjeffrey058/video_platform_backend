@@ -4,19 +4,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const videoRoutes = require('./routes/videoRoutes');
 const userRoutes = require('./routes/userRoutes');
-// const { google } = require('googleapis');
-
-// const oauth2Client = new google
+const multer = require('multer');
 
 const app = express();
 
-// middleware
+// middlewares
 app.use(cors(process.env.FRONT_URL));
 app.use(express.json());
-// app.use((req, res, next) => {
-//     console.log(req.path, req.method);
-//     next();
-// });
 
 app.get('/', (req, res) => {
     res.redirect('/api/videos');
@@ -27,7 +21,7 @@ app.use('/api/videos', videoRoutes);
 app.use('/api/users', userRoutes);
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.LOCAL_MONGO_URI)
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log('listening at port ', process.env.PORT)

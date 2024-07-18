@@ -1,43 +1,56 @@
 const Videos = require('../models/videoModel');
+const { ref, getStorage, uploadBytes, getDownloadURL } = require('firebase/storage');
+const app = require('../services/firebase');
 
 const getSingleVideo = async (req, res) => {
     try {
-        const query = req.query;
-        const current = parseInt(query.current) || 0;
-        const doc_count = await Videos.countDocuments();
-        const result = await Videos.findOne().skip(current);
-        res.status(200).json({ doc_count: doc_count, result: result });
+
+        const video = await Videos.findOne({ _id: req.params.vid });
+        res.status(200).json({ video });
 
     } catch (error) {
-        res.status(500).json({ error: "Unable to fetch video" });
+        console.log(error)
+        res.status(500).json({ error: "Unable to fetch " });
     }
 };
 
 const getAllVideos = async (req, res) => {
     try {
+
         const videos = await Videos.find();
+
         res.status(200).json({ videos });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'An unknown error occured' });
     }
 }
 
-const uploadVideo = async (req, res) => {
-    const { title, description, url } = req.body;
+
+const videoUpload = async (req, res) => {
     try {
-        const result = await Videos.create({ title, description, url });
+        const { title, description } = req.body;
 
-        if (!result) return res.status(500).json({ error: 'Unable to add video' });
+        const storage = getStorage(app);
 
-        res.status(201).json({ message: 'Video added successfully' });
+        const storageRef = ref(storage, `videos/${req.file.originalname}`);
+
+        const results = await uploadBytes(storageRef, req.file)
+
+        const downloadUrl = await getDownloadURL(results.ref);
+
+        await Videos.create({ title, description, url: downloadUrl });
+
+        res.status(201).json({ message: 'Video uploaded successfully' });
 
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        console.log(error)
+        res.status(500).json({ error: 'An error occured' })
     }
 }
 
 module.exports = {
     getSingleVideo,
-    uploadVideo,
-    getAllVideos
+    videoUpload,
+    getAllVideos,
 }

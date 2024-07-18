@@ -22,7 +22,7 @@ module.exports = async (email, subject, text) => {
 
         return true;
     } catch (error) {
+        // console.log(error);
         return false;
-        console.log(error);
     }
 }

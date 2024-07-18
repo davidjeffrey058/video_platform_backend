@@ -21,7 +21,8 @@ const loginUser = async (req, res) => {
                 const emailToken = await Token.create({ user_id: user._id, token: crypto.randomBytes(32).toString('hex') });
                 const url = `${process.env.FRONT_URL}/verify/${user._id}/${(await emailToken).token}`;
 
-                await sendEmail(user.email, 'Verify your email', `Click on the link below to verify your email\n\n ${url}`);
+                await sendEmail(user.email, 'Verify your email', `Click on the link below to verify your email\n\n ${url} \n
+                    Link expires in an hour`);
             }
             // return res.status(400).json({ message: 'An email sent to your account please verify' });
             throw Error('Please verify your account in your email');
@@ -44,7 +45,8 @@ const signupUser = async (req, res) => {
 
         const url = `${process.env.FRONT_URL}/verify/${user._id}/${(await emailToken).token}`;
 
-        await sendEmail(user.email, 'Verify your email', `Click on the link below to verify your email\n\n ${url}`);
+        await sendEmail(user.email, 'Verify your email', `Click on the link below to verify your email\n\n ${url}\n
+            Link expires in an hour`);
 
         res.status(201).json({ message: "A verification link sent to your email please verify" });
 
@@ -89,6 +91,8 @@ const resetPass = async (req, res) => {
         const user = await User.findOne({ email: req.body.email });
         if (!user) return res.status(404).json({ error: 'Email not found' });
 
+        if (!user.verified) return res.status(400).json({ error: 'Email address not verified' });
+
         const token = await PassToken.findOne({ user_id: user._id });
         if (token) {
             await PassToken.deleteOne({ user_id: token.user_id });
@@ -97,7 +101,8 @@ const resetPass = async (req, res) => {
         const emailToken = await PassToken.create({ user_id: user._id, token: crypto.randomBytes(32).toString('hex') });
 
         const emailResponse = await sendEmail(user.email, 'Reset your password', `Click on the link to reset your password \n\n 
-        ${process.env.FRONT_URL}/changepass/${user._id}/${emailToken.token}`);
+        ${process.env.FRONT_URL}/changepass/${user._id}/${emailToken.token}\n
+        Link expires in an hour`);
 
         if (emailResponse) {
             return res.status(202).json({ message: "A password reset link sent to your email" });
@@ -135,8 +140,7 @@ const changePass = async (req, res) => {
 
         res.status(200).json({ message: 'Password changed successfully' });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'An unknown error occured' });
     }
 }
 
