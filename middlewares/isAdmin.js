@@ -9,9 +9,9 @@ const isAdmin = async (req, res, next) => {
 
         if (user.is_admin) return next();
 
-        res.status(400).json({ error: 'Unauthorized request' });
+        res.status(401).json({ error: 'Unauthorized request' });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: 'An unknown error occured' })
     }
 }
 

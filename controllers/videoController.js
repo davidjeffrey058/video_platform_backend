@@ -1,5 +1,5 @@
 const Videos = require('../models/videoModel');
-const { ref, getStorage, uploadBytes, getDownloadURL } = require('firebase/storage');
+const { ref, getStorage, uploadBytes, getDownloadURL, uploadBytesResumable } = require('firebase/storage');
 const app = require('../services/firebase');
 
 const getSingleVideo = async (req, res) => {
@@ -10,15 +10,14 @@ const getSingleVideo = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: "Unable to fetch " });
+        res.status(500).json({ error: "Unable to fetch video" });
     }
 };
 
 const getAllVideos = async (req, res) => {
     try {
-
-        const videos = await Videos.find();
-
+        const videos = await Videos.find()
+            .sort({ createdAt: -1 });
         res.status(200).json({ videos });
     } catch (error) {
         console.log(error)
@@ -35,7 +34,11 @@ const videoUpload = async (req, res) => {
 
         const storageRef = ref(storage, `videos/${req.file.originalname}`);
 
-        const results = await uploadBytes(storageRef, req.file)
+        const metadata = {
+            contentType: req.file.mimetype
+        }
+
+        const results = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
 
         const downloadUrl = await getDownloadURL(results.ref);
 

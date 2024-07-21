@@ -21,7 +21,7 @@ app.use('/api/videos', videoRoutes);
 app.use('/api/users', userRoutes);
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.LOCAL_MONGO_URI)
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log('listening at port ', process.env.PORT)

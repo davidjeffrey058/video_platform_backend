@@ -24,7 +24,6 @@ const loginUser = async (req, res) => {
                 await sendEmail(user.email, 'Verify your email', `Click on the link below to verify your email\n\n ${url} \n
                     Link expires in an hour`);
             }
-            // return res.status(400).json({ message: 'An email sent to your account please verify' });
             throw Error('Please verify your account in your email');
         }
 

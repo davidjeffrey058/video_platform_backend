@@ -11,7 +11,6 @@ const upload = multer({
 
 router.use(requireAuth);
 
-// Get a single video
 router.get('/:vid', getSingleVideo);
 router.get('', getAllVideos);
 
