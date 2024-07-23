@@ -43,3 +43,36 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
     STORAGE_BUCKET=your_storage_bucket
     MESSAGING_SENDER_ID=your_messaging_sender_id
     APP_ID=1:1094632914577:web:your_app_id
+
+## USAGE
+### Start the development server
+    `npm run dev`
+
+### API Endpoints
+
+**POST** /api/users/login - User login
+**POST** /api/users/signup - User registration
+**GET** /api/users/:id/verify/:token - verify users email address
+**POST** /api/users/password-reset - Initiating password reset
+**POST** /api/users/change-pass/:uid/:token - Change user's password
+
+**POST** /api/videos/upload - Upload a new video
+**GET** /api/videos - Fetch all videos
+**GET** /api/video/:vid - Get a single video
+
+## CONTRIBUTING
+Contributions are welcome! Please Follow these steps:
+1. Fork the respository
+2. Create a new branch
+    `git checkout -b feature/Your feature`
+3. Commit your changes
+    `git commit -m 'Add YourFeature`
+4. Push to the branch 
+    `git push origin feature/YourFeature`
+5. Open a Pull Request
+
+## LICENSE
+This project is licensed under the MIT license
+
+## AUTHORS AND ACKNOWLEDGEMENTS
+- David Jeffrey - Initial work
