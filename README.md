@@ -1,7 +1,7 @@
 # Video Platform Backend
 
 ## OVERVIEW
-The Video Platform Backend project is a Node.js application designed to manage the backend functionalities of a video sharing platform. Key features include:
+The Video Platform Backend project is a Node.js application designed to manage the backend functionalities of a video streaming platform. Key features include:
 
 - **User Authentication and Authorization:** Secure user login and registration processes.
 - **User Password Recovery:** Mechanisms for users to recover forgotten passwords.
@@ -28,7 +28,7 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
     SECRET=your_secret_for_password_encryption
     SALT=your_rounds_for_password_encryption
 
-    FRONT_URL=https://video-platform-c4585.web.app
+    FRONT_URL=your_frontend_url
 
     HOST=your_host
     SERVICE=your_service
@@ -43,3 +43,36 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
     STORAGE_BUCKET=your_storage_bucket
     MESSAGING_SENDER_ID=your_messaging_sender_id
     APP_ID=1:1094632914577:web:your_app_id
+
+## USAGE
+### Start the development server
+    `npm run dev`
+
+### API Endpoints
+
+**POST** /api/users/login - User login
+**POST** /api/users/signup - User registration
+**GET** /api/users/:id/verify/:token - verify users email address
+**POST** /api/users/password-reset - Initiating password reset
+**POST** /api/users/change-pass/:uid/:token - Change user's password
+
+**POST** /api/videos/upload - Upload a new video
+**GET** /api/videos - Fetch all videos
+**GET** /api/video/:vid - Get a single video
+
+## CONTRIBUTING
+Contributions are welcome! Please Follow these steps:
+1. Fork the respository
+2. Create a new branch
+    `git checkout -b feature/Your feature`
+3. Commit your changes
+    `git commit -m 'Add YourFeature`
+4. Push to the branch 
+    `git push origin feature/YourFeature`
+5. Open a Pull Request
+
+## LICENSE
+This project is licensed under the MIT license
+
+## AUTHORS AND ACKNOWLEDGEMENTS
+- David Jeffrey - Initial work

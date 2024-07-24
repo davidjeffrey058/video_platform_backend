@@ -6,6 +6,9 @@ const getSingleVideo = async (req, res) => {
     try {
 
         const video = await Videos.findOne({ _id: req.params.vid });
+        if (!video) {
+            return res.status(404).json({ error: "Video not found" });
+        }
         res.status(200).json({ video });
 
     } catch (error) {
