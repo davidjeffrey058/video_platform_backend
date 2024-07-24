@@ -13,7 +13,7 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
 
 ## INSTALLATION
 ### Clone the repository
-    `git clone https://github.com/davidjeffrey058/video_platform_backend.git
+    `git clone [https://github.com/davidjeffrey058/video_platform_backend.git]
     cd video_platform_backend`
 
 ### Install dependencies
@@ -49,25 +49,23 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
     `npm run dev`
 
 ### API Endpoints
-
-**POST** /api/users/login - User login
-**POST** /api/users/signup - User registration
-**GET** /api/users/:id/verify/:token - verify users email address
-**POST** /api/users/password-reset - Initiating password reset
-**POST** /api/users/change-pass/:uid/:token - Change user's password
-
-**POST** /api/videos/upload - Upload a new video
-**GET** /api/videos - Fetch all videos
-**GET** /api/video/:vid - Get a single video
+- **POST** /api/users/login - User login
+- **POST** /api/users/signup - User registration
+- **GET** /api/users/:id/verify/:token - verify users email address
+- **POST** /api/users/password-reset - Initiating password reset
+- **POST** /api/users/change-pass/:uid/:token - Change user's password
+- **POST** /api/videos/upload - Upload a new video
+- **GET** /api/videos - Fetch all videos
+- **GET** /api/video/:vid - Get a single video
 
 ## CONTRIBUTING
 Contributions are welcome! Please Follow these steps:
 1. Fork the respository
-2. Create a new branch
-    `git checkout -b feature/Your feature`
-3. Commit your changes
+2. Create a new branch\
+    `git checkout -b feature/YourFeature`
+3. Commit your changes\
     `git commit -m 'Add YourFeature`
-4. Push to the branch 
+4. Push to the branch\
     `git push origin feature/YourFeature`
 5. Open a Pull Request
 
