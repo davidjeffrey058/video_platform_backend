@@ -11,13 +11,25 @@ The Video Platform Backend project is a Node.js application designed to manage t
 
 This backend system ensures a robust and scalable infrastructure for a video-centric application.
 
+> sample user login credential\
+> email: example@admin.com\
+> password: @Test123
+
+## TECHNOLOGIES USED
+- **Programming Languages**: JavaScript
+- **Runtime Environment:** Node.js
+- **Dependencies:** bcrypt, cors, dotenv, express, firebase, jsonwebtoken, mongoose, multer, nodemailer, validator
+- **Database:** MongoDB
+- **Cloud storage:** Firebase storage
+- **Tools:** npm, Git
+
 ## INSTALLATION
 ### Clone the repository
-    `git clone [https://github.com/davidjeffrey058/video_platform_backend.git]
-    cd video_platform_backend`
+    git clone https://github.com/davidjeffrey058/video_platform_backend.git
+    cd video_platform_backend
 
 ### Install dependencies
-    `npm install`
+    npm install
 
 ### Set up environmental variables
 
@@ -62,11 +74,17 @@ This backend system ensures a robust and scalable infrastructure for a video-cen
 Contributions are welcome! Please Follow these steps:
 1. Fork the respository
 2. Create a new branch\
-    `git checkout -b feature/YourFeature`
+    ```
+    git checkout -b feature/YourFeature
+    ```
 3. Commit your changes\
-    `git commit -m 'Add YourFeature`
+    ```
+    git commit -m 'Add YourFeature
+    ```
 4. Push to the branch\
-    `git push origin feature/YourFeature`
+    ```
+    git push origin feature/YourFeature
+    ```
 5. Open a Pull Request
 
 ## LICENSE
